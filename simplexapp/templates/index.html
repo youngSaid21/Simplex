@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Simplex</title>
+</head>
+<body>
+    <div class="center">
+    <h1>Method Simplex en une Phase</h1>
+    
+    <form name='my-form' method='post' action="saisie">
+    	{% csrf_token %}
+    	<label for="choice">Choisir (minimiser ou maximiser) :</label>
+    	<br>
+    	<br>
+        <select name="choice" id="choice" style="width: 250px">
+            <option value="min">Minimiser</option>
+            <option value="max">Maximiser</option>
+        </select>
+        
+        <br>
+    	<br>
+        <input type="number" name="number1" placeholder="Nombre de variable de décision" style="width: 250px" min="0" step="1">
+        <br>
+        <br> 
+        <input type="number" name="number2" placeholder="Nombre de contrainte" style="width: 250px" min="0" step="1">
+        <br>
+        <br>
+        <button type="submit">Continuer</button>
+        
+    </form>
+    </div>
+    
+
+    <style>
+      .center {
+        margin: auto;
+        width: 40%;
+        border: 3px solid #a5addb;
+        padding: 10px;
+      }
+    </style>
+    
+</body>
+</html>
