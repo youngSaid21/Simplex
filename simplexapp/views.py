@@ -11,12 +11,6 @@ def ajout_variables_ecart(nb_contraintes, objectif, contraintes):
     contraintes = np.hstack((contraintes, matrice_identite))
     return (objectif, contraintes)
     
-'''def nom_variables(objectif_etendus):
-    indice_variables = []
-    for i in range(len(objectif_etendus[0])):
-        indice_variables.append(i)
-    return indice_variables'''
-
 # Retourner la solution realisable
 def solution_realisable(second_membre):
     indices_tries = np.argsort(second_membre[:, 0])
@@ -43,17 +37,18 @@ def indice_variable_entrante(objectif):
     return np.argmin(objectif)
 
 # Retourner l'indice de la variable sortante    
-def indice_variable_sortante(contraintes_etendus, second_membre, indice):
+def indice_variable_sortante(contraintes_etendus, second_membre, indice, nb_variable, nb_contraintes):
     l = []
-    j = 0
     
-    for i in range(len(second_membre)-1):
+    #for i in range(nb_variable,len(second_membre)-1):
+    for i in range(nb_variable,nb_variable + nb_contraintes):
         
-        if second_membre[i][1] != 0:
+        
+        
+        #if second_membre[i][1] != 0:
             
-            if contraintes_etendus[j][indice] != 0:
-                l.append([second_membre[i][0],second_membre[i][1]/contraintes_etendus[j][indice]])
-            j += 1
+        if contraintes_etendus[i-nb_variable][indice] != 0:
+            l.append([second_membre[i][0],second_membre[i][1]/contraintes_etendus[i-nb_variable][indice]])
     
     k = l[0]
     
@@ -64,14 +59,15 @@ def indice_variable_sortante(contraintes_etendus, second_membre, indice):
     return k[0]
  
 # Diviser la ligne de pivot par le pivot
-def dif_ligne_piv(contraintes_etendus, second_membre, indice_entrante, indice_sortante):
+def dif_ligne_piv(contraintes_etendus, second_membre, indice_entrante, indice_sortante, nb_variable):
     
     
     #print((indice_sortante - 3))
     
-    pivot = contraintes_etendus[indice_sortante - 3][indice_entrante]
-    for j in range(len(contraintes_etendus[indice_sortante - 3])):
-        contraintes_etendus[indice_sortante - 3][j] = contraintes_etendus[indice_sortante - 3][j]/pivot
+    pivot = contraintes_etendus[indice_sortante - nb_variable - 1][indice_entrante] 
+    #print(pivot)
+    for j in range(len(contraintes_etendus[indice_sortante - nb_variable - 1])):
+        contraintes_etendus[indice_sortante - nb_variable - 1][j] = contraintes_etendus[indice_sortante - nb_variable - 1][j]/pivot
     
     #print("1",second_membre)
 
@@ -91,9 +87,10 @@ def echanger_entrante_sortante(second_membre, indice_entrante, indice_sortante):
     
     second_membre[j][0] , second_membre[i][0] = second_membre[i][0],  second_membre[j][0]
     
-# Pivotage 
-def pivotage(second_membre, objectif_etendus, contraintes_etendus, indice_entrante, indice_sortante):
-    ligne_pivot = contraintes_etendus[indice_sortante - 3]
+# Pivotage                 
+def pivotage(second_membre, objectif_etendus, contraintes_etendus, indice_entrante, indice_sortante, nb_variable):
+    ligne_pivot = contraintes_etendus[indice_sortante - nb_variable - 1]
+    
     pivot = objectif_etendus[0][indice_entrante]
       
     for i in range(len(objectif_etendus[0])):
@@ -111,9 +108,9 @@ def pivotage(second_membre, objectif_etendus, contraintes_etendus, indice_entran
     
     
     
-    for i in range(2,len(second_membre)-1):
+    for i in range(nb_variable,len(second_membre)-1):
         if i != indice_sortante - 1:
-            pivot = contraintes_etendus[i-2][indice_entrante]
+            pivot = contraintes_etendus[i-nb_variable][indice_entrante]
             #print("pivot : ",pivot)
     
             second_membre[i][1] = second_membre[i][1] - pivot * second_membre[indice_sortante-1][1]
@@ -123,7 +120,7 @@ def pivotage(second_membre, objectif_etendus, contraintes_etendus, indice_entran
             
     
     for i in range(len(contraintes_etendus)):
-        if i != indice_sortante - 3:
+        if i != indice_sortante - nb_variable - 1:
             pivot = contraintes_etendus[i][indice_entrante]
             for j in range(len(contraintes_etendus[i])):
                 contraintes_etendus[i][j] = contraintes_etendus[i][j] - pivot * ligne_pivot[j]
@@ -138,6 +135,8 @@ def solution_simplexe(nb_variable, nb_contraintes, objectif, contraintes, second
     
     while 1:
         
+        
+        
         # Indice de la variable entrante
         indice_entrante = int(indice_variable_entrante(objectif_etendus))
         #print(indice_entrante)
@@ -145,20 +144,23 @@ def solution_simplexe(nb_variable, nb_contraintes, objectif, contraintes, second
         
         if objectif_etendus[0][indice_entrante] >= 0:
             solution = solution_realisable(second_membre)
-            #print(contraintes_etendus)
-            #print(objectif_etendus)
+            
             return solution
             
             
 
-        indice_sortante = int(indice_variable_sortante(contraintes_etendus, second_membre, indice_entrante))
+        indice_sortante = int(indice_variable_sortante(contraintes_etendus, second_membre, indice_entrante, nb_variable, nb_contraintes))
         
-        dif_ligne_piv(contraintes_etendus, second_membre, indice_entrante, indice_sortante)
+       
+        
+        dif_ligne_piv(contraintes_etendus, second_membre, indice_entrante, indice_sortante, nb_variable)
+        
+        
         
         echanger_entrante_sortante(second_membre, indice_entrante, indice_sortante)
            
-        pivotage(second_membre, objectif_etendus, contraintes_etendus, indice_entrante, indice_sortante)
-
+        pivotage(second_membre, objectif_etendus, contraintes_etendus, indice_entrante, indice_sortante, nb_variable)
+        
 def index(request):
     # Exemple d'utilisationnb_variable = 2
     nb_variable = 2
