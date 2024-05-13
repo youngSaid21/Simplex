@@ -5,26 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Simplex</title>
+    <style>
+      body{
+        font-family: optima;
+      }
+      .center {;
+        margin: 20px auto;
+        width: 80%;
+        padding: 20px;
+        border-left: 1px solid black;
+      }
+      h1 {
+        color: blue;
+      }
+    </style>
 </head>
 <body>
     <div class="center">
-    <h1>Method Simplex en une Phase</h1>
+    <h1>Methode Simplex en une Phase</h1>
     
     <p>La solution optimale est : </p>
     <p>z = {{ z }}</p>
     {% for key, value in dictio.items %}
-   		<p>{{ key }} = {{ value }}</p>
+   		<p>x{{ key }} = {{ value }}</p>
     {% endfor%}
+    <a href="{% url 'index' %}">Retour à l'acceuil</a>
     </div>
     
-    <style>
-      .center {
-        margin: auto;
-        width: 40%;
-        border: 3px solid #a5addb;
-        padding: 10px;
-      }
-    </style>
+
+    
     
 </body>
 </html>

@@ -5,10 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Simplex</title>
+    <style>
+      body{
+        font-family: optima;
+      }  
+      .center {;
+        margin: 20px auto;
+        width: 80%;
+        padding: 20px;
+        border-left: 1px solid black;
+      }
+      h1 {
+        color: blue;
+      }
+    </style>
 </head>
 <body>
-    <div class="center">
-    <h1>Method Simplex en une Phase</h1>
+    <div class="center overflow-auto">
+    <h1>Methode Simplex en une Phase</h1>
     
     <form name='my-form' method='post' action="saisie">
     	{% csrf_token %}
@@ -22,26 +36,16 @@
         
         <br>
     	<br>
-        <input type="number" name="number1" placeholder="Nombre de variable de décision" style="width: 250px" min="0" step="1">
+        <input type="number" name="number1" placeholder="Nombre de variable de décision" style="width: 250px" min="0" step="1" required>
         <br>
         <br> 
-        <input type="number" name="number2" placeholder="Nombre de contrainte" style="width: 250px" min="0" step="1">
+        <input type="number" name="number2" placeholder="Nombre de contrainte" style="width: 250px" min="0" step="1" required>
         <br>
         <br>
         <button type="submit">Continuer</button>
         
     </form>
     </div>
-    
-
-    <style>
-      .center {
-        margin: auto;
-        width: 40%;
-        border: 3px solid #a5addb;
-        padding: 10px;
-      }
-    </style>
     
 </body>
 </html>

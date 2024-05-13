@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "causal-prism-422520-d0-7817",
+    "public": "simplex",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

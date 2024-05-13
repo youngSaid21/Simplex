@@ -6,16 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Simplex</title>
+    <style>
+      body{
+        font-family: optima;
+      }
+  
+      .center {;
+        margin: 20px auto;
+        width: 80%;
+        padding: 20px;
+        border-left: 1px solid black;
+      }
+      h1 {
+        color: blue;
+      }
+      h4 {
+        font-size: 18px;
+      }
+    </style>
 </head>
 <body>
-    <div class="center">
-    <h2>Method Simplex en une Phase</h2>
+    <div class="center overflow-auto">
+    <h1>Methode Simplex en une Phase</h1>
     
     <form name="form2" action="{% url 'result' nb_variable nb_contraintes %}" method="post">
         {% csrf_token %}
         <h4>Fonction Objectif</h4>
         {% for x in indices_objectifs%}
-            <input type="number" name="number{{x}}"  style="width: 50px" min="0" step="1"> x{{ x }} 
+            <input type="number" name="number{{x}}"  style="width: 80px" min="0" step="1" required> x{{ x }} 
         {% endfor %}
         <br><br>
         <h4>Contraintes</h4>
@@ -23,14 +41,14 @@
             <div class="col-auto">
                 {% for indice in indices_contraintes %}
                     {% for x in indice %}
-                         <input type="number" name="contrainte{{ x }}" style="width: 50px" min="0" step="1"> x{{ x|get_last_digit }}
+                         <input type="number" name="contrainte{{ x }}" style="width: 80px" min="0" step="1" required> x{{ x|get_last_digit }}
                     {% endfor %}
                     <br><br>  
                 {% endfor %}
             </div>
             <div class="col-auto">
                 {% for x in second_membre %}
-                     <= <input type="number" name="second_membre{{ x }}" style="width: 50px" min="0" step="1">
+                     <= <input type="number" name="second_membre{{ x }}" style="width: 80px" min="0" step="1" required>
                     <br><br>  
                 {% endfor %}
             </div>
@@ -45,14 +63,6 @@
     </form>
     </div>
     
-    <style>
-      .center {
-        margin: auto;
-        width: 70%;
-        border: 3px solid #a5addb;
-        padding: 10px;
-      }
-    </style>
     
 </body>
 </html>
