@@ -8,7 +8,7 @@
     <style>
       body{
         font-family: optima;
-      }  
+      }
       .center {;
         margin: 20px auto;
         width: 80%;
@@ -23,29 +23,28 @@
 <body>
     <div class="center overflow-auto">
     <h1>Methode Simplex en une Phase</h1>
-    
+
     <form name='my-form' method='post' action="saisie">
-    	{% csrf_token %}
-    	<label for="choice">Choisir (minimiser ou maximiser) :</label>
-    	<br>
-    	<br>
+        {% csrf_token %}
+        <label for="choice">Choisir (minimiser ou maximiser) :</label>
+        <br>
+        <br>
         <select name="choice" id="choice" style="width: 250px">
-            <option value="min">Minimiser</option>
-            <option value="max">Maximiser</option>
+            <option value="min">Maximiser</option>
         </select>
-        
+
         <br>
-    	<br>
-        <input type="number" name="number1" placeholder="Nombre de variable de décision" style="width: 250px" min="0" step="1" required>
         <br>
-        <br> 
-        <input type="number" name="number2" placeholder="Nombre de contrainte" style="width: 250px" min="0" step="1" required>
+        <input type="number" name="number1" placeholder="Nombre de variable de décision" style="width: 250px" min="1" step="1" required>
+        <br>
+        <br>
+        <input type="number" name="number2" placeholder="Nombre de contrainte" style="width: 250px" min="1" step="1" required>
         <br>
         <br>
         <button type="submit">Continuer</button>
-        
+
     </form>
     </div>
-    
+
 </body>
 </html>

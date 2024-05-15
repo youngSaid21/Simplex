@@ -23,17 +23,20 @@
 <body>
     <div class="center">
     <h1>Methode Simplex en une Phase</h1>
-    
+    {% if z != 0 %}
     <p>La solution optimale est : </p>
     <p>z = {{ z }}</p>
     {% for key, value in dictio.items %}
-   		<p>x{{ key }} = {{ value }}</p>
+      <p>x{{ key }} = {{ value }}</p>
     {% endfor%}
+    {% else %}
+    <p>Il n'existe pas une solution optimale</p>
+    {% endif%}
     <a href="{% url 'index' %}">Retour à l'acceuil</a>
     </div>
-    
 
-    
-    
+
+
+
 </body>
 </html>
